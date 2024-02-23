@@ -39,8 +39,19 @@ public class TestingSteps {
 
 	@Then("The pokemon information is displayed")
 	public void the_pokemon_information_is_displayed() {
-		ps.ReviewStats();
+		ps.PokemonDescrition();
 
+	}
+
+	@When("I review stats agains API")
+	public void i_review_stats_agains_api() {
+		ps.ReviewStatsAgainstAPI();
+
+	}
+
+	@When("I review skills agains API")
+	public void i_review_skills_agains_api() {
+		ps.ReviewSkillsAgainstAPI();
 	}
 
 }

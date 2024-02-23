@@ -1,21 +1,14 @@
 package com.pages;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-
 public class pokeSearch {
-
-	public String BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
-	public Response response;
-	public String newURL;
-	RequestSpecification requestSpecification = RestAssured.given();
 
 	WebDriver driver;
 
@@ -25,10 +18,11 @@ public class pokeSearch {
 
 	By clickName = By.cssSelector(".col.pokemonnamecol");
 
-	By h1 = By.cssSelector("//div[@class='pfx-body dexentry']//h1");
+	By h1des = By.xpath("//div[@class='pfx-body dexentry']//h1");
 
-	By s1 = By.cssSelector(
-			"body > div:nth-child(3) > div:nth-child(1) > dl:nth-child(8) > dd:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)");
+	By rows = By.xpath("//table//child::td[@class='stat']");
+
+	By rows2 = By.xpath("//dd[@class='imgentry']//a");
 
 	public pokeSearch(WebDriver driver) {
 		this.driver = driver;
@@ -48,7 +42,7 @@ public class pokeSearch {
 	public void SearchPokeFieldActive() {
 
 		boolean sf = driver.findElement(searchfield).isEnabled();
-		System.out.println("Element is visible? " + sf);
+		System.out.println("  Search Element is visible? " + sf);
 	}
 
 	public void EnterPokeName(String name) {
@@ -60,23 +54,36 @@ public class pokeSearch {
 	}
 
 	public void PokemonDescrition() {
-		boolean h1IsDis = driver.findElement(h1).isDisplayed();
-		System.out.println("Element is visible? " + h1IsDis);
+		boolean pd = driver.findElement(h1des).isEnabled();
+		System.out.println("  Pokemon Description is visible? " + pd);
 
 	}
 
-	public void ReviewStats() {
-		String stats1 = driver.findElement(s1).getText();
-		System.out.println(stats1);
-		RestAssured.baseURI = BASE_URL;
-		newURL = BASE_URL + "dratini";
-		System.out.println(newURL);
-		RequestSpecification requestSpecification = RestAssured.given();
-		response = requestSpecification.when().get(newURL);
-		int code = response.then().extract().statusCode();
-		System.out.println(code);
-		boolean comparation1 = response.path("stats.0.base_stat").equals(Integer.parseInt(stats1));
-		System.out.println(comparation1);
+	public void ReviewStatsAgainstAPI() {
+		List<WebElement> allrows = driver.findElements(rows);
+
+		for (int i = 0; i < allrows.size(); i++) {
+
+		}
+
+		System.out.println("HP: " + allrows.get(0).getText());
+		System.out.println("Attack: " + allrows.get(1).getText());
+		System.out.println("Defense: " + allrows.get(2).getText());
+		System.out.println("Sp. Atk: " + allrows.get(3).getText());
+		System.out.println("Sp. Def: " + allrows.get(4).getText());
+		System.out.println("Speed: " + allrows.get(5).getText());
+
+	}
+
+	public void ReviewSkillsAgainstAPI() {
+		List<WebElement> allrows = driver.findElements(rows2);
+
+		for (int i = 0; i < allrows.size(); i++) {
+
+		}
+
+		System.out.println("Skills1: " + allrows.get(0).getText());
+		System.out.println("Skills2: " + allrows.get(1).getText());
 
 	}
 }
