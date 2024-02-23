@@ -27,13 +27,13 @@ public class TestingSteps {
 		ps.SearchPokeFieldActive();
 	}
 
-	@When("I enter the <name> of pokemon")
+	@When("I enter the Dratini of pokemon")
 	public void i_enter_the_dratini_of_pokemon() {
 		ps.EnterPokeName("Dratini");
 	}
 
 	@When("I click the pokemon name")
-	public void i_click_the_search_button() {
+	public void i_click_the_search_button() throws InterruptedException {
 		ps.ClickPokemonName();
 	}
 
@@ -52,6 +52,18 @@ public class TestingSteps {
 	@When("I review skills agains API")
 	public void i_review_skills_agains_api() {
 		ps.ReviewSkillsAgainstAPI();
+	}
+
+	@When("I enter the Kingdra of pokemon")
+	public void i_enter_the_kingdra_of_pokemon() {
+		ps.EnterPokeName("Kingdra");
+
+	}
+
+	@When("I enter the Bagon of pokemon")
+	public void i_enter_the_bagon_of_pokemon() {
+		ps.EnterPokeName("Bagon");
+
 	}
 
 }

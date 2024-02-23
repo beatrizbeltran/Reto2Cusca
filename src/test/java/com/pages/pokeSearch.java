@@ -21,13 +21,11 @@ public class pokeSearch {
 
 	By clickName = By.cssSelector(".col.pokemonnamecol");
 
-	By h1des = By.xpath("//strong/span[@class='picon']");
+	By h1des = By.xpath("//a[@class='subtle']");
 
 	By rows = By.xpath("//table//child::td[@class='stat']");
 
 	By rows2 = By.xpath("//dd[@class='imgentry']//a");
-	
-	Response rs = ApiCall.getRequest("https://pokeapi.co/api/v2/pokemon/" + "dratini");
 
 	public pokeSearch(WebDriver driver) {
 		this.driver = driver;
@@ -54,13 +52,14 @@ public class pokeSearch {
 		driver.findElement(pokemonName).sendKeys(name);
 	}
 
-	public void ClickPokemonName() {
+	public void ClickPokemonName() throws InterruptedException {
 		driver.findElement(clickName).click();
+		Thread.sleep(5);
 	}
 
 	public void PokemonDescrition() {
 		String pd = driver.findElement(h1des).getText();
-		System.out.println("  Pokemon Description is visible? " + pd);
+		System.out.println("Pokemon Description is visible? " + pd);
 
 	}
 
@@ -78,8 +77,8 @@ public class pokeSearch {
 		System.out.println(" Sp. Def: " + allrows.get(4).getText());
 		System.out.println(" Speed: " + allrows.get(5).getText());
 
-		// int code = rs.getStatusCode();
-		// System.out.println("Status code API : " + code);
+		String addULR = driver.findElement(clickName).getText().toLowerCase();
+		Response rs = ApiCall.getRequest("https://pokeapi.co/api/v2/pokemon/" + addULR);
 
 		int s1 = rs.path("stats[0].base_stat");
 		int s2 = rs.path("stats[1].base_stat");
@@ -109,11 +108,13 @@ public class pokeSearch {
 
 		System.out.println("Skills1: " + allrows.get(0).getText());
 		System.out.println("Skills2: " + allrows.get(1).getText());
-		
+		String addULR = driver.findElement(clickName).getText().toLowerCase();
+		Response rs = ApiCall.getRequest("https://pokeapi.co/api/v2/pokemon/" + addULR);
+
 		String sk1 = rs.path("abilities[0].ability.name");
 		String sk2 = rs.path("abilities[1].ability.name");
 		System.out.println("Skilss API : " + " Skill1: " + sk1 + " Skill2: " + sk2);
-		
+
 		driver.quit();
 
 	}

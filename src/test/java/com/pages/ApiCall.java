@@ -8,7 +8,7 @@ public class ApiCall {
 	public static Response getRequest(String url) {
         //RestAssured.baseURI = "https://pokeapi.co/api/v2/pokemon";
 
-		Response response = RestAssured.get(url);
+		Response response = RestAssured.get(url);	
 
 		return response;
 	}

@@ -10,3 +10,8 @@ Feature: Searching a pokemon in web to compare stats and skills against API
     And I review stats agains API
     And I review skills agains API
    
+   Examples:
+   |name   |
+   |Dratini|
+   |Kingdra|
+   |Bagon  |
